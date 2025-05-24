@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import "./Gigs.scss";
 import { gigs } from "../../data";
 import GigCard from "../../components/gigCard/GigCard";
-
+  
 function Gigs() {
   const [sort, setSort] = useState("sales");
   const [open, setOpen] = useState(false);

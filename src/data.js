@@ -108,7 +108,7 @@ export const gigs = [
     desc: "I can make Interactive Android applications for you business.",
     price: 8000,
     star: 4,
-    username: "Karan Mehta",
+    username: "Karan Mehta",  
   },
   {
     id: 3,

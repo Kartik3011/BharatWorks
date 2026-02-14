@@ -1,0 +1,68 @@
+.add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    width: 1200px;
+    padding: 60px 20px;
+
+    h1 {
+      width: max-content;
+      margin-bottom: 25px;
+      color: #4a4a4a;
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+
+    .sections {
+      display: flex;
+      justify-content: space-around;
+      gap: 80px;
+
+      label {
+        color: #6d6d6d;
+        font-size: 17px;
+        letter-spacing: 0.5px;
+      }
+
+      .info,
+      .details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        justify-content: flex-start;
+
+        input,
+        select,
+        textarea {
+          padding: 15px;
+          border: 1px solid #ccc;
+          border-radius: 10px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+          border: none;
+          padding: 18px;
+          color: white;
+          font-weight: 600;
+          font-size: 17px;
+          background-color: #14bcda;
+          border-radius: 20px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: #14bcda;
+          }
+        }
+      }
+    }
+  }
+}
+.butt{
+  width: 30vh;
+ 
+}

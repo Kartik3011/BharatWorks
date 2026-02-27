@@ -40,7 +40,7 @@ Key Information:
 Answer users helpfully and professionally as Saarthi.
 `;
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "https://bharat-works-beige.vercel.app", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 

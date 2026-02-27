@@ -63,7 +63,7 @@
         logs.scrollTop = logs.scrollHeight;
 
         try {
-          const res = await fetch('http://localhost:8800/api/saarthi', {
+          const res = await fetch('https://bharatworks-1.onrender.com/api/saarthi', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: msg })

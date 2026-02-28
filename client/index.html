@@ -2,82 +2,119 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon-32x32.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BharatWorks</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    /> 
     <style>
+      * {
+        padding: 0;
+        margin: 0px;
+        font-family: "Roboto", sans-serif;
+      }
       /* Saarthi Chat Styles */
-      #saarthi-btn {
-        position: fixed; bottom: 25px; right: 25px; 
-        background: #1dbf73; color: white; border: none; 
-        width: 60px; height: 60px; border-radius: 50%; 
-        cursor: pointer; font-size: 24px; z-index: 9999;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      #saarthi-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+      #saarthi-toggle {
+        background: #1dbf73; color: white; border: none; width: 60px; height: 60px;
+        border-radius: 50%; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-size: 24px;
       }
-      #saarthi-box {
-        position: fixed; bottom: 95px; right: 25px; 
-        width: 350px; height: 450px; background: white; 
-        border-radius: 12px; display: none; flex-direction: column; 
-        box-shadow: 0 8px 24px rgba(0,0,0,0.15); z-index: 9999; overflow: hidden;
+      #saarthi-chat {
+        display: none; width: 350px; height: 480px; background: white; border-radius: 15px;
+        flex-direction: column; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        position: absolute; bottom: 80px; right: 0;
       }
-      .chat-header { background: #1dbf73; color: white; padding: 15px; font-weight: bold; }
-      #chat-logs { flex: 1; padding: 15px; overflow-y: auto; background: #f7f7f7; display: flex; flex-direction: column; gap: 8px; }
-      .chat-input-area { display: flex; padding: 10px; border-top: 1px solid #eee; }
-      #chat-input { flex: 1; border: 1px solid #ddd; padding: 8px; border-radius: 4px; outline: none; }
-      #chat-send { background: #1dbf73; color: white; border: none; padding: 8px 15px; margin-left: 5px; border-radius: 4px; cursor: pointer; }
-      .bot-msg { align-self: flex-start; background: #e4e4e4; padding: 8px; border-radius: 8px; max-width: 80%; font-size: 14px; }
-      .user-msg { align-self: flex-end; background: #1dbf73; color: white; padding: 8px; border-radius: 8px; max-width: 80%; font-size: 14px; }
+      .chat-header { background: #1dbf73; color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; }
+      #saarthi-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 14px; background: #f9f9f9; }
+      .chat-input-area { padding: 10px; border-top: 1px solid #eee; display: flex; background: white; }
+      #saarthi-input { flex: 1; border: 1px solid #ddd; padding: 10px; border-radius: 20px; outline: none; }
+      #saarthi-send { background: #1dbf73; color: white; border: none; margin-left: 8px; padding: 0 15px; border-radius: 20px; cursor: pointer; }
     </style>
+    <title>BharatWorks</title>
+    <link rel="icon" href="favicon-32x32.png" type="image/png">
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
 
-    <button id="saarthi-btn">🤖</button>
-    <div id="saarthi-box">
-      <div class="chat-header">Saarthi - BharatWorks AI</div>
-      <div id="chat-logs">
-        <div class="bot-msg">Namaste! How can I help you with BharatWorks today?</div>
-      </div>
-      <div class="chat-input-area">
-        <input type="text" id="chat-input" placeholder="Ask Saarthi...">
-        <button id="chat-send">Send</button>
+    <div id="saarthi-container">
+      <button id="saarthi-toggle">🤖</button>
+      <div id="saarthi-chat">
+        <div class="chat-header">
+          <span>Saarthi AI Assistant</span>
+          <span id="close-chat" style="cursor:pointer;">✕</span>
+        </div>
+        <div id="saarthi-messages">
+          <div style="align-self: flex-start; background: #eee; padding: 8px 12px; border-radius: 15px; max-width: 80%;">
+            Namaste! I am Saarthi. How can I help you with BharatWorks today?
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="saarthi-input" placeholder="Type a message...">
+          <button id="saarthi-send">Send</button>
+        </div>
       </div>
     </div>
 
-    <script>
-      const btn = document.getElementById('saarthi-btn');
-      const box = document.getElementById('saarthi-box');
-      const input = document.getElementById('chat-input');
-      const send = document.getElementById('chat-send');
-      const logs = document.getElementById('chat-logs');
+    <script type="module">
+      // Configuration - Accessing Vercel Environment Variable via Vite
+      const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY; 
+      const KNOWLEDGE_BASE = `
+        You are Saarthi, the AI assistant for BharatWorks. 
+        BharatWorks is an AI-driven freelancer marketplace for Tier-2 and Tier-3 cities in India.
+        Key Features: AI matching (BERT/TF-IDF), Secure Escrow, Multilingual support, and low 5%-15% commission.
+      `;
 
-      btn.onclick = () => box.style.display = box.style.display === 'none' ? 'flex' : 'none';
+      const toggleBtn = document.getElementById('saarthi-toggle');
+      const closeBtn = document.getElementById('close-chat');
+      const chatWin = document.getElementById('saarthi-chat');
+      const sendBtn = document.getElementById('saarthi-send');
+      const input = document.getElementById('saarthi-input');
+      const msgContainer = document.getElementById('saarthi-messages');
 
-      async function handleChat() {
-        const msg = input.value.trim();
-        if(!msg) return;
+      toggleBtn.onclick = () => chatWin.style.display = 'flex';
+      closeBtn.onclick = () => chatWin.style.display = 'none';
 
-        logs.innerHTML += `<div class="user-msg">${msg}</div>`;
+      async function sendMessage() {
+        const text = input.value.trim();
+        if (!text || !GROQ_API_KEY) return;
+
+        msgContainer.innerHTML += `<div style="align-self: flex-end; background: #1dbf73; color: white; padding: 8px 12px; border-radius: 15px; max-width: 80%;">${text}</div>`;
         input.value = '';
-        logs.scrollTop = logs.scrollHeight;
+        msgContainer.scrollTop = msgContainer.scrollHeight;
 
         try {
-          const res = await fetch('https://bharatworks-1.onrender.com/api/saarthi', {
+          const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: msg })
+            headers: {
+              'Authorization': `Bearer ${GROQ_API_KEY}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              model: "llama3-8b-8192",
+              messages: [
+                { role: "system", content: KNOWLEDGE_BASE },
+                { role: "user", content: text }
+              ]
+            })
           });
-          const data = await res.json();
-          logs.innerHTML += `<div class="bot-msg">${data.reply}</div>`;
-        } catch(e) {
-          logs.innerHTML += `<div class="bot-msg" style="color:red">Error connecting to Saarthi.</div>`;
+
+          const data = await response.json();
+          const reply = data.choices[0].message.content;
+          
+          msgContainer.innerHTML += `<div style="align-self: flex-start; background: #eee; padding: 8px 12px; border-radius: 15px; max-width: 80%;">${reply}</div>`;
+          msgContainer.scrollTop = msgContainer.scrollHeight;
+        } catch (err) {
+          msgContainer.innerHTML += `<div style="color: red; font-size: 12px; text-align: center;">Connection Error.</div>`;
         }
-        logs.scrollTop = logs.scrollHeight;
       }
 
-      send.onclick = handleChat;
-      input.onkeypress = (e) => { if(e.key === 'Enter') handleChat(); };
+      sendBtn.onclick = sendMessage;
+      input.onkeypress = (e) => { if(e.key === 'Enter') sendMessage() };
     </script>
   </body>
 </html>

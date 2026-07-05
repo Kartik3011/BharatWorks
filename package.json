@@ -2,7 +2,7 @@
   "dependencies": {
     "bcrypt": "^6.0.0",
     "choco": "^0.2.1",
-    "tar": "^7.5.9"
+    "tar": "^7.5.16"
   },
   "overrides": {
   "form-data": "^4.0.0",

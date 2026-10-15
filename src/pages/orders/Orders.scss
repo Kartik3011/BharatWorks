@@ -1,0 +1,15 @@
+@use "../../styles/variables" as *;
+
+.orders {
+  display: flex;
+  justify-content: center;
+
+  .container {
+    padding-bottom: 72px;
+  }
+
+  .empty-state img {
+    margin-bottom: 12px;
+    opacity: 0.6;
+  }
+}

@@ -1,0 +1,194 @@
+@use "../../styles/variables" as *;
+
+.chatWidget {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+
+  .fab {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: $ink;
+    color: $gold;
+    border: none;
+    box-shadow: $shadow-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease;
+
+    &:hover {
+      transform: scale(1.06);
+    }
+  }
+
+  .panel {
+    width: 340px;
+    max-width: calc(100vw - 48px);
+    height: 460px;
+    max-height: calc(100vh - 140px);
+    background-color: $surface;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-lg;
+    border: 1px solid $border;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .header {
+    background-color: $ink;
+    color: $surface;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    strong {
+      display: block;
+      font-family: $font-heading;
+      font-size: 15px;
+    }
+
+    span {
+      display: block;
+      font-size: 12px;
+      color: rgba($surface, 0.65);
+    }
+
+    .closeBtn {
+      background: none;
+      border: none;
+      color: $surface;
+      display: flex;
+    }
+  }
+
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: $surface-alt;
+  }
+
+  .bubble {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+
+    &.assistant {
+      align-self: flex-start;
+      background-color: $surface;
+      border: 1px solid $border;
+      border-bottom-left-radius: 4px;
+    }
+
+    &.user {
+      align-self: flex-end;
+      background-color: $ink;
+      color: $surface;
+      border-bottom-right-radius: 4px;
+    }
+
+    &.errorBubble {
+      align-self: center;
+      background-color: rgba($danger, 0.08);
+      border: 1px solid rgba($danger, 0.25);
+      color: $danger;
+      font-size: 13px;
+    }
+
+    &.typing {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: $text-muted;
+        animation: bounce 1.2s infinite ease-in-out;
+
+        &:nth-child(2) {
+          animation-delay: 0.15s;
+        }
+        &:nth-child(3) {
+          animation-delay: 0.3s;
+        }
+      }
+    }
+  }
+
+  .composer {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid $border;
+    background-color: $surface;
+
+    input {
+      flex: 1;
+      border: 1px solid $border;
+      border-radius: 999px;
+      padding: 10px 16px;
+      outline: none;
+      font-size: 14px;
+
+      &:focus {
+        border-color: $gold;
+      }
+    }
+
+    button {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: none;
+      background-color: $gold;
+      color: $ink;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  @include bp(sm) {
+    right: 16px;
+    bottom: 16px;
+
+    .panel {
+      width: calc(100vw - 32px);
+    }
+  }
+}
+
+@keyframes bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}

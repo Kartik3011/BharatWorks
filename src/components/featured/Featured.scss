@@ -1,0 +1,180 @@
+@use "../../styles/variables" as *;
+
+.featured {
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(135deg, $ink 0%, #2a2419 65%, #3a2f18 100%);
+  color: $surface;
+  overflow: hidden;
+
+  .container {
+    display: flex;
+    align-items: flex-end;
+    gap: 40px;
+    padding-top: 64px;
+    padding-bottom: 0;
+    min-height: 560px;
+  }
+
+  .left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    align-self: center;
+    padding-bottom: 64px;
+
+    h1 {
+      // global.scss sets a dark color on every h1–h4 by default; this hero
+      // heading sits on a dark background and needs to stay white, so it
+      // needs its own (higher-specificity) override here.
+      color: $surface;
+      font-size: 48px;
+      line-height: 1.15;
+      font-weight: 700;
+      max-width: 560px;
+
+      span {
+        color: $gold;
+        font-style: italic;
+        font-weight: 500;
+      }
+    }
+
+    .search {
+      background-color: $surface;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      overflow: hidden;
+      width: 100%;
+      max-width: 480px;
+      padding: 4px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+
+      .searchInput {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+        color: $text-muted;
+        padding-left: 14px;
+
+        input {
+          border: none;
+          outline: none;
+          color: $text;
+          padding: 12px 0;
+          width: 100%;
+
+          &::placeholder {
+            color: $text-faint;
+          }
+        }
+      }
+
+      button {
+        border: none;
+        border-radius: 999px;
+        background-color: $gold;
+        color: $ink;
+        font-family: $font-heading;
+        font-weight: 700;
+        padding: 12px 24px;
+        cursor: pointer;
+        transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+
+        &:hover {
+          background-color: $gold-dark;
+          color: $surface;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 18px rgba($gold, 0.4);
+        }
+      }
+    }
+
+    .popular {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+
+      span {
+        color: rgba($surface, 0.7);
+        font-size: 14px;
+      }
+
+      button {
+        color: $surface;
+        border: 1px solid rgba($surface, 0.4);
+        padding: 6px 14px;
+        border-radius: 999px;
+        background-color: transparent;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+
+        &:hover {
+          border-color: $gold;
+          color: $gold;
+          background-color: rgba($gold, 0.1);
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+
+  .right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    img {
+      max-height: 520px;
+      object-fit: contain;
+      object-position: bottom;
+      filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.45));
+      animation: floatY 5s ease-in-out infinite;
+    }
+  }
+
+  @include bp(md) {
+    .container {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-top: 48px;
+      padding-bottom: 32px;
+      min-height: unset;
+    }
+
+    .left {
+      padding-bottom: 0;
+    }
+
+    .left h1 {
+      font-size: 34px;
+    }
+
+    .right {
+      width: 100%;
+      justify-content: center;
+
+      img {
+        max-height: 280px;
+        animation: none;
+      }
+    }
+  }
+}
+
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

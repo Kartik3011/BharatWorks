@@ -1,0 +1,57 @@
+// Design tokens — derived from the BharatWorks logo (charcoal + gold),
+// replacing the mismatched Fiverr green/blue the template shipped with.
+
+// Brand
+$ink: #17140f; // near-black, logo wordmark
+$gold: #c8962c; // primary accent, logo mark
+$gold-dark: #a67a20;
+$gold-light: #f6e4b8;
+
+// Neutrals — darkened from the first pass; the lighter values read as
+// washed-out / low-contrast against a white background.
+$text: #1c1b19;
+$text-muted: #57534a;
+$text-faint: #78736a;
+$border: #ddd6c6;
+$surface: #ffffff;
+$surface-alt: #faf7f0;
+$surface-dark: #17140f;
+
+// Feedback
+$success: #1f9d55;
+$danger: #d0473e;
+$star: #f0b429;
+
+// Layout
+$max-width: 1280px;
+$radius-sm: 6px;
+$radius-md: 10px;
+$radius-lg: 16px;
+$shadow-sm: 0 1px 3px rgba(23, 20, 15, 0.08);
+$shadow-md: 0 8px 24px rgba(23, 20, 15, 0.1);
+$shadow-lg: 0 20px 45px rgba(23, 20, 15, 0.16);
+
+// Type
+$font-heading: "Montserrat", sans-serif;
+$font-body: "Roboto", sans-serif;
+
+// Breakpoints (used with the mixin below)
+$bp-lg: 1200px;
+$bp-md: 900px;
+$bp-sm: 600px;
+
+@mixin bp($size) {
+  @if $size == lg {
+    @media (max-width: $bp-lg) {
+      @content;
+    }
+  } @else if $size == md {
+    @media (max-width: $bp-md) {
+      @content;
+    }
+  } @else if $size == sm {
+    @media (max-width: $bp-sm) {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@use "../../styles/variables" as *;
+
+.catCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+  border-radius: $radius-md;
+  border: 1px solid $border;
+  background-color: $surface;
+  transition: all 0.2s ease;
+
+  .iconWrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $gold-light;
+    color: $gold-dark;
+    transition: all 0.2s ease;
+  }
+
+  .title {
+    font-family: $font-heading;
+    font-weight: 600;
+    font-size: 15px;
+    color: $ink;
+    line-height: 1.35;
+  }
+
+  &:hover {
+    border-color: $gold;
+    box-shadow: $shadow-md;
+    transform: translateY(-4px);
+
+    .iconWrap {
+      background-color: $ink;
+      color: $gold;
+      transform: scale(1.08) rotate(-6deg);
+    }
+  }
+}

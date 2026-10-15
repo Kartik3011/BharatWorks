@@ -1,0 +1,32 @@
+@use "../../styles/variables" as *;
+
+.add {
+  display: flex;
+  justify-content: center;
+
+  .container {
+    max-width: 720px;
+    padding-bottom: 72px;
+  }
+
+  .addForm {
+    padding: 32px;
+    margin-top: 12px;
+
+    .row {
+      display: flex;
+      gap: 18px;
+
+      .field {
+        flex: 1;
+      }
+    }
+  }
+
+  @include bp(sm) {
+    .addForm .row {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+}

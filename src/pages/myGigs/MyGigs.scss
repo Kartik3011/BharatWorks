@@ -1,0 +1,27 @@
+@use "../../styles/variables" as *;
+
+.myGigs {
+  display: flex;
+  justify-content: center;
+
+  .container {
+    padding-bottom: 72px;
+  }
+
+  .page-heading.row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .titleCell a {
+    font-weight: 600;
+    color: $ink;
+
+    &:hover {
+      color: $gold-dark;
+    }
+  }
+}

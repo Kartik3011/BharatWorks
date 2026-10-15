@@ -1,0 +1,292 @@
+@use "../../styles/variables" as *;
+
+// The navbar used to render transparent (white text) by default, intended
+// to sit over the dark hero image. But it's `position: sticky` and the hero
+// is a separate block below it in normal document flow — it never actually
+// overlapped the hero, so that "transparent" state was white text on the
+// plain white page background and unreadable. Always solid now.
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: $surface;
+  color: $ink;
+  transition: box-shadow 0.25s ease;
+
+  .link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &.active {
+    box-shadow: $shadow-sm;
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    padding: 14px 24px;
+    gap: 32px;
+  }
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 4px;
+  }
+
+  .logoImg {
+    height: 42px;
+    width: auto;
+    transition: transform 0.2s ease;
+  }
+
+  .left:hover .logoImg {
+    transform: scale(1.04);
+  }
+
+  // Nav links sit grouped with the auth/profile controls on the right,
+  // with the open space reserved for the logo on the left.
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    font-family: $font-heading;
+    font-weight: 500;
+    font-size: 15px;
+    margin-left: auto;
+
+    .link {
+      position: relative;
+      padding: 4px 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 0%;
+        height: 2px;
+        background-color: $gold-dark;
+        transition: width 0.2s ease;
+      }
+
+      &:hover {
+        color: $gold-dark;
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .iconLink {
+    display: flex;
+    color: inherit;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background-color: rgba($gold, 0.14);
+
+      .rawIcon {
+        filter: none;
+        opacity: 1;
+      }
+    }
+  }
+
+  .btn-outline {
+    color: inherit;
+  }
+
+  .user {
+    position: relative;
+
+    .userTrigger {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: inherit;
+      font-family: $font-heading;
+      font-weight: 500;
+      padding: 4px;
+      border-radius: 999px;
+      transition: background-color 0.15s ease;
+
+      &:hover {
+        background-color: rgba($gold, 0.14);
+      }
+    }
+
+    .options {
+      position: absolute;
+      top: 48px;
+      right: 0;
+      padding: 14px;
+      background-color: $surface;
+      color: $text;
+      border-radius: $radius-md;
+      z-index: 999;
+      border: 1px solid $border;
+      box-shadow: $shadow-md;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 190px;
+      animation: dropIn 0.15s ease;
+
+      .roleBadge {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: $text-muted;
+        font-weight: 700;
+        padding: 4px 8px 10px;
+        border-bottom: 1px solid $border;
+        margin-bottom: 4px;
+      }
+
+      .link,
+      .logoutBtn {
+        padding: 9px 8px;
+        border-radius: $radius-sm;
+        font-size: 14px;
+        text-align: left;
+
+        &:hover {
+          background-color: $surface-alt;
+        }
+
+        &::after {
+          display: none;
+        }
+      }
+
+      .logoutBtn {
+        background: none;
+        border: none;
+        color: $danger;
+        font-family: inherit;
+        cursor: pointer;
+      }
+    }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid $border;
+  }
+
+  .menu {
+    padding: 12px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    font-weight: 400;
+    font-size: 14px;
+    color: $text-muted;
+
+    .menuLink {
+      &::after {
+        display: none;
+      }
+
+      &:hover {
+        color: $gold-dark;
+      }
+    }
+  }
+
+  .mobileMenu {
+    display: none;
+  }
+
+  @include bp(md) {
+    .desktopOnly {
+      display: none !important;
+    }
+
+    .hamburger {
+      display: inline-flex;
+    }
+
+    .bar {
+      gap: 12px;
+    }
+
+    .logoImg {
+      height: 34px;
+    }
+
+    .mobileMenu {
+      display: flex;
+      flex-direction: column;
+      background-color: $surface;
+      color: $text;
+      padding: 8px 24px 24px;
+      gap: 2px;
+
+      .link,
+      .logoutBtn {
+        padding: 12px 4px;
+        border-bottom: 1px solid $border;
+        font-family: $font-heading;
+        font-weight: 500;
+        background: none;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        text-align: left;
+        font-size: 15px;
+      }
+
+      .logoutBtn {
+        color: $danger;
+        cursor: pointer;
+      }
+
+      .mobileSectionTitle {
+        margin-top: 14px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: $text-muted;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+@keyframes dropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

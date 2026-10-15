@@ -1,0 +1,21 @@
+@use "../../styles/variables" as *;
+
+.starRating {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: $star;
+
+  .value {
+    margin-left: 4px;
+    font-weight: 700;
+    color: $ink;
+    font-size: 13px;
+  }
+
+  .count {
+    color: $text-muted;
+    font-size: 13px;
+    font-weight: 400;
+  }
+}

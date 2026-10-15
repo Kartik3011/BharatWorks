@@ -1,0 +1,112 @@
+@use "../../styles/variables" as *;
+
+.footer {
+  display: flex;
+  justify-content: center;
+  color: $text-muted;
+  margin-top: 60px;
+  padding: 56px 0 32px;
+  border-top: 1px solid $border;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-width: 170px;
+
+      h2 {
+        font-size: 14px;
+        font-weight: 700;
+        color: $ink;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      a {
+        font-size: 14px;
+        font-weight: 400;
+        color: $text-muted;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        width: fit-content;
+
+        &:hover {
+          color: $gold-dark;
+
+          .rawIcon {
+            filter: none;
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  hr {
+    margin: 40px 0px 24px;
+    height: 0;
+    border: none;
+    border-top: 1px solid $border;
+  }
+
+  .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    .left span {
+      font-size: 13px;
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+
+      .social {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        img {
+          height: 16px;
+          width: auto;
+          opacity: 0.6;
+          transition: opacity 0.15s ease, transform 0.15s ease;
+
+          &:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+          }
+        }
+      }
+
+      .lang {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+      }
+    }
+  }
+
+  @include bp(sm) {
+    .top {
+      gap: 32px;
+    }
+  }
+}
